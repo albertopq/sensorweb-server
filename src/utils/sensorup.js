@@ -16,7 +16,7 @@ import proxy                   from 'express-http-proxy';
 import config                  from '../config';
 import { resourceEndpoints }   from '../routes/base';
 
-export default proxy(config.get('sandboxServer'), {
+export default proxy(config.get('sensorthings.sandbox.server'), {
   filter: (req, res) => {
     const matches = resourceEndpoints.filter(endpoint => {
       const regexp = new RegExp('^((?!' + endpoint + ').)*$');
@@ -31,9 +31,9 @@ export default proxy(config.get('sandboxServer'), {
   },
   decorateRequest: (proxyReq, originalReq) => {
     // Add SensorUp auth header.
-    proxyReq.headers['St-P-Access-Token'] = config.get('sandboxToken');
+    proxyReq.headers['St-P-Access-Token'] = config.get('sensorthings.sandbox.token');
 
-    proxyReq.path = config.get('sandboxPath') + proxyReq.path;
+    proxyReq.path = config.get('sensorthings.sandbox.path') + proxyReq.path;
 
     return proxyReq;
   }

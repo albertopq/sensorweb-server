@@ -41,19 +41,28 @@ const conf = convict({
     default: 8080,
     env: 'PORT'
   },
-  sandboxPath: {
-    doc: 'SensorThings sandbox API path',
-    default: '/st-playground/proxy/v1.0'
-  },
-  sandboxServer: {
-    doc: 'SensorThings sandbox API server',
-    format: 'url',
-    default: 'https://pg-api.sensorup.com'
-  },
-  sandboxToken: {
-    doc: 'SensorThings sandbox API credentials',
-    format: avoidDefault,
-    default: defaultValue
+  sensorthings:{
+    useProxy: {
+      doc: 'Use external proxy or local API',
+      format: [true, false],
+      default: true
+    },
+    sandbox: {
+      token: {
+        doc: 'SensorThings sandbox API credentials',
+        format: avoidDefault,
+        default: defaultValue
+      },
+      server: {
+        doc: 'SensorThings sandbox API server',
+        format: 'url',
+        default: 'https://pg-api.sensorup.com'
+      },
+      path: {
+        doc: 'SensorThings sandbox API path',
+        default: '/st-playground/proxy/v1.0'
+      }
+    }
   },
   version: {
     doc: 'API version. We follow SensorThing\'s versioning format as described at http://docs.opengeospatial.org/is/15-078r6/15-078r6.html#34',
